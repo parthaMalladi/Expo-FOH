@@ -1,0 +1,7 @@
+run "npx create-expo-app@latest --template default@sdk-55 ./" to add the files into your current folder (does not make a folder so be in the folder you want to be in)
+
+then run "npm run reset-project" to get rid of the example project
+
+then go to the nativewind website and follow the v5 docs. Follow the "Installation with Expo" section
+
+delete node_modules and .expo folder. Run npm i to reinstall the required dependencies. Then you can start expo.
