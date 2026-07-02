@@ -1,10 +1,14 @@
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import { SafeAreaView, Text, TextInput, TouchableOpacity, View } from 'react-native';
+// Assuming you have expo-crypto or react-native-vector-icons, or a simple feather icon package installed:
+import { Feather } from '@expo/vector-icons';
+import Logo from '../../assets/logo.svg';
 
 export default function LoginScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
 
   const handleSignIn = () => {
@@ -12,48 +16,95 @@ export default function LoginScreen() {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-gray-100 flex-row justify-center items-center">
+    // Background color matching the deep beige tone
+    <SafeAreaView className="flex-1 bg-[#b59e85] items-center justify-between py-8">
       
-      {/* Center Rectangle / Bubble */}
-      <View className="w-[400px] p-8 rounded-xl bg-white items-center shadow-sm">
+      {/* Top Logo Section */}
+      <View className="items-center mt-6">
+        <Logo width={120} height={60} />
+      </View>
+
+      {/* Center Card Container */}
+      {/* We use max-w-md and explicit width handling so it stays sharp and responsive */}
+      <View className="w-[90%] max-w-[420px] p-10 rounded-[40px] bg-[#dfd3c3] items-center shadow-2xl">
         
-        <Text className="text-2xl font-bold mb-6 text-gray-800">Welcome</Text>
+        {/* Header Text */}
+        <Text className="text-4xl font-serif font-semibold text-[#1e2229] mb-2 text-center">
+          Welcome Back
+        </Text>
+        <Text className="text-sm font-medium text-[#655d53] mb-8 text-center">
+          Sign in to manage your store tabs and events.
+        </Text>
 
-        {/* Email Input */}
-        <TextInput
-          className="w-full h-12 border border-gray-300 rounded-md px-4 mb-4 bg-gray-50 text-gray-800"
-          placeholder="Email"
-          placeholderTextColor="#9ca3af"
-          value={email}
-          onChangeText={setEmail}
-          keyboardType="email-address"
-          autoCapitalize="none"
-        />
+        {/* Email Input Field */}
+        <View className="w-full mb-5">
+          <Text className="text-xs font-bold text-[#5c544a] tracking-wider uppercase mb-2 ml-1">
+            Email Address
+          </Text>
+          <TextInput
+            className="w-full h-12 bg-white rounded-xl px-4 text-[#1e2229] shadow-sm text-base"
+            placeholder="name@company.com"
+            placeholderTextColor="#b0a89f"
+            value={email}
+            onChangeText={setEmail}
+            keyboardType="email-address"
+            autoCapitalize="none"
+          />
+        </View>
 
-        {/* Password Input */}
-        <TextInput
-          className="w-full h-12 border border-gray-300 rounded-md px-4 mb-4 bg-gray-50 text-gray-800"
-          placeholder="Password"
-          placeholderTextColor="#9ca3af"
-          value={password}
-          onChangeText={setPassword}
-          secureTextEntry
-        />
+        {/* Password Input Field */}
+        <View className="w-full mb-8">
+          <Text className="text-xs font-bold text-[#5c544a] tracking-wider uppercase mb-2 ml-1">
+            Password
+          </Text>
+          <View className="w-full h-12 bg-white rounded-xl px-4 flex-row items-center justify-between shadow-sm">
+            <TextInput
+              className="flex-1 h-full text-[#1e2229] text-base"
+              placeholder="••••••••••••"
+              placeholderTextColor="#b0a89f"
+              value={password}
+              onChangeText={setPassword}
+              secureTextEntry={!showPassword}
+            />
+            {/* Password visibility toggle */}
+            <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
+              <Feather 
+                name={showPassword ? "eye" : "eye-off"} 
+                size={20} 
+                color="#a0988f" 
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
 
         {/* Sign In Button */}
+        {/* Vibrant Orange Gradient/Solid color with strong rounded corner matching the Figma pill button */}
         <TouchableOpacity 
-          className="w-full h-12 bg-blue-500 justify-center items-center rounded-md mt-2 mb-4 shadow-sm active:bg-blue-600" 
+          className="w-full h-14 bg-[#e05315] justify-center items-center rounded-2xl shadow-md active:opacity-90" 
           onPress={handleSignIn}
         >
-          <Text className="text-white font-bold text-base">Sign In</Text>
+          <Text className="text-white font-semibold text-lg">Sign In</Text>
         </TouchableOpacity>
 
         {/* Forgot Password Link */}
-        <TouchableOpacity onPress={() => console.log('Forgot Password Clicked')}>
-          <Text className="text-blue-500 text-sm font-medium">Forgot Password?</Text>
+        <TouchableOpacity 
+          className="mt-6" 
+          onPress={() => console.log('Forgot Password Clicked')}
+        >
+          <Text className="text-[#655d53] text-sm font-medium underline">
+            Forgot password?
+          </Text>
         </TouchableOpacity>
         
       </View>
+
+      {/* Footer Branding */}
+      <View className="mb-4">
+        <Text className="text-xs text-[#ebdcd0]/70 font-light">
+          Powered By <Text className="font-semibold">iPourIt</Text>
+        </Text>
+      </View>
+
     </SafeAreaView>
   );
 }
